@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="css/main.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+    </head>
+
+    <body>
+        <header class="template-header"></header>
+
+        <div class="template-body-content" id="template_body_content">
+            <!-- панель выбора менджмента -->
+            <div class="panel management-change" id="management_change">
+                <!-- менеджмент товаров -->
+                <div v-bind:class="selected_css" v-on:click="select()" class="disable-selection panel-element">
+                    <span>Товары</span>
+                </div>
+
+                <!-- менеджмент заказов -->
+                <div v-bind:class="selected_css" v-on:click="select()" class="disable-selection panel-element">
+                    <span>Заказы</span>
+                </div>
+
+                <!-- менеджмент пользователей -->
+                <div v-bind:class="selected_css" v-on:click="select()" class="disable-selection panel-element">
+                    <span>Пользователи</span>
+                </div>
+
+                <!-- рассылка на почту -->
+                <div v-bind:class="selected_css" v-on:click="select()" class="disable-selection panel-element">
+                    <span>Почта</span>
+                </div>
+
+            </div>
+
+            <!-- панель выбора типа объекта обработки -->
+            <div class="panel"></div>
+
+            <!-- поле работы с выбранным объектом менджмента -->
+            <div></div>
+        </div>
+
+        <footer class="template-footer"></footer>
+
+
+        <script src="scripts/main.js"></script>
+    </body>
+</html>

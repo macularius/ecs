@@ -1,0 +1,1 @@
+<div class="good-inview">Товар <?php foreach ($data as $value) echo $value;?></div>
