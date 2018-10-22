@@ -77,29 +77,29 @@ li {
             background:linear-gradient(45deg, transparent 50px, #262626 0);
         }
             .search {
-                width: 40%;
+                width: 45%;
                 height: 20px;
                 float: right;
                 margin-top: 10px;
-                margin-right: 5%;
+                margin-right: 2%;
                 background: #b2b2b2;
                 border: #262626 solid 1px;
                 color: #262626;
                 padding-left: 1%;
                 padding-right: 1%;
             }
-                .search-btn {
-                    height: 17px;
-                    width: 4%;
-                    float: right;
-                    padding: 5px;
-                    text-align: center;
-                    margin-top: 8px;
-                    margin-right: 14%;
-                    background: #787878;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
+            .search-btn {
+                height: 17px;
+                width: 6%;
+                float: right;
+                padding: 5px;
+                text-align: center;
+                margin-top: 8px;
+                margin-right: 3%;
+                background: #787878;
+                border-radius: 5px;
+                cursor: pointer;
+            }
 
 
 .template-body-content {
@@ -134,7 +134,7 @@ li {
     width: 15%;
     top: -49px;
     position: relative;
-    margin-left: 4%;
+    margin-left: 6%;
     background: #787878;
     border: #262626 1px solid;
     float: left;

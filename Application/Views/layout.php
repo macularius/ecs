@@ -5,11 +5,12 @@
     $controller_name = $url[1];
     $action_name = $url[2];
 
-    if($controller_name == 'catalog' && $action_name == 'index') $selected_btn = 'каталог';
-    elseif($controller_name == 'catalog' && $action_name == 'about') $selected_btn = 'о нас';
+    if($controller_name == 'catalog' && $action_name == 'about') $selected_btn = 'о нас';
     elseif($controller_name == 'cart' && $action_name == 'index') $selected_btn = 'корзина';
     elseif($controller_name == 'cart' && $action_name == 'index') $selected_btn = 'корзина';
     elseif($controller_name == 'catalog' && $action_name == 'good') $selected_btn = 'товар';
+    elseif($controller_name == 'verification' && $action_name == 'index') $selected_btn = 'верефикация';
+    else $selected_btn = 'каталог';
 ?>
 
 <!DOCTYPE html>
@@ -56,29 +57,32 @@
 
                 <?php
                     echo "<!-- Менеджмент -->";
-                    if(false){
-                        echo "<a href='/'><div id=\"management_btn_main\" class=\"sidebar-element disable-selection \" id=\"management\"  onmouseover=\"point(this)\"
-                                                                                                                                          onmouseout=\"unpoint(this)\">Менеджмент</div></a>";
+                    if(true){
+                        echo "<a href='/'><div id=\"management_btn_main\" class=\"sidebar-element disable-selection\"
+                                                                                                                        onmouseover=\"point(this)\"
+                                                                                                                        onmouseout=\"unpoint(this)\">Менеджмент</div></a>";
                     }
                 ?>
 
             </div>
 
-            <div id="user_icon" class="user-icon"
-                                                   onmouseover="point(this)"
-                                                   onmouseout="unpoint(this)">
-                <div class="user-icon-text disable-selection"><?php echo 'войти'?></div>
-            </div>
+            <a href="/verification/index">
+                <div id="user_icon" class="user-icon"
+                                                       onmouseover="point(this)"
+                                                       onmouseout="unpoint(this)">
+                    <div class="user-icon-text disable-selection"><?php echo 'войти'?></div>
+                </div>
+            </a>
         </div>
 
         <?php
-            echo "<script>alert();</script>";
+            //echo "<script>alert();</script>";
             if ($selected_btn == 'каталог' || $url == "http://ecs") {
                 echo "  <div class=\"search-container\">
                             <div class=\"search-field\">
+                                <input class=\"search\" type=\"text\" placeholder=\"🔎 поиск\">
                                 <a class=\"search-btn disable-selection\" onmouseover=\"point(this)\"
                                                                         onmouseout=\"unpoint(this)\">Найти</a>
-                                <input class=\"search\" type=\"text\" placeholder=\"🔎 поиск\">
                             </div>
                         </div>";
             }

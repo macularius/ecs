@@ -19,7 +19,9 @@ class routes
         '/cart/index' => 'cart/index', // корзина
         '/catalog/cartContent' => 'cart/index', // корзина
         '/catalog/good/:num' => 'catalog/good/$1', // страница товара
-        '/index.php?controller=:any&action=:any' => '$1/$2', // страница товара
+        //'/index.php?controller=:any&action=:any' => '$1/$2', // страница товара
+
+        '/verification/index' => 'verification/index', // корзина
 
     );
 
