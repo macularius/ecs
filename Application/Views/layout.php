@@ -72,7 +72,8 @@
         </div>
 
         <?php
-            if ($selected_btn == 'каталог') {
+            echo "<script>alert();</script>";
+            if ($selected_btn == 'каталог' || $url == "http://ecs") {
                 echo "  <div class=\"search-container\">
                             <div class=\"search-field\">
                                 <a class=\"search-btn disable-selection\" onmouseover=\"point(this)\"

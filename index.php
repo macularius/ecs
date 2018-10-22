@@ -12,8 +12,6 @@ include_once 'config.php';
 $url = $_GET['url'];
 
 
-
-//echo "index.php";
 //echo "<br >"."URL: ".$url."<br >";
 
 include 'Application/Core/bootstrap.php';
