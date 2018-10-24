@@ -77,9 +77,9 @@ class Router
      * Запуск соответствующего действия/экшена/метода контроллера
      */
     public static function executeAction() {
-        $controller = isset(self::$params[0]) ? self::$params[0]: 'err';
+        $controller = isset(self::$params[0]) ? self::$params[0] : 'err';
         $controller .= '_controller';
-        $action = isset(self::$params[1]) ? self::$params[1]: 'err404';
+        $action = isset(self::$params[1]) ? self::$params[1] : 'err404';
         $action = 'action_'.$action;
         $params = array_slice(self::$params, 2);
 

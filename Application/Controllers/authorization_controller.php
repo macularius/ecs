@@ -6,7 +6,7 @@
  * Time: 16:52
  */
 
-class verification_controller extends controller
+class authorization_controller extends controller
 {
     public function action_index(){
 

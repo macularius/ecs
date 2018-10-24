@@ -1,6 +1,3 @@
-
-
-
 function sselect(element) {
     if(element.className.indexOf(" selected") == -1) {
 
@@ -36,7 +33,6 @@ function showMore(element) {
     document.getElementById(+element.id.replace(" more_btn", '')+15).style.display = '';
     element.parentNode.removeChild(element);
 }
-
 
 function point(element) {
     if(element.className.indexOf(" pointed") == -1) element.className += " pointed";

@@ -9,7 +9,7 @@
     elseif($controller_name == 'cart' && $action_name == 'index') $selected_btn = 'корзина';
     elseif($controller_name == 'cart' && $action_name == 'index') $selected_btn = 'корзина';
     elseif($controller_name == 'catalog' && $action_name == 'good') $selected_btn = 'товар';
-    elseif($controller_name == 'verification' && $action_name == 'index') $selected_btn = 'верефикация';
+    elseif($controller_name == 'authorization' && $action_name == 'index') $selected_btn = 'авторизация';
     else $selected_btn = 'каталог';
 ?>
 
@@ -25,7 +25,10 @@
     </head>
 
     <!--  PHP code: если текущая страница - не каталог, то нужно убрать пространство, занимаемое посковым элементом  -->
-    <header class="template-header" <?php if ($selected_btn != 'каталог') echo "style=\"height: 70px;\""?>>
+    <header class="template-header" 
+                                     <?php if ($selected_btn != 'каталог') echo "style=\"height: 70px;\""?>
+
+    >
         <!-- логотип -->
         <div class="logo-container"  id="logo">
             <span class="logo-text disable-selection">Автозапчасти.ru</span>
