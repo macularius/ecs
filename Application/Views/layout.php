@@ -19,79 +19,75 @@
         <meta charset="utf-8">
         <title id="title"><?echo $selected_btn;?></title>
 
+        <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/Application/Views/css/main.css">
+<!--        <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap-grid.css">-->
+<!--        <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap-grid.css">-->
 
-<!--        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>-->
+        <script type="javascript" src="/Application/Views/scripts/bootstrap.js"></script>
+        <script type="javascript" src="/Application/Views/scripts/bootstrap.bundle.js"></script>
     </head>
 
     <!--  PHP code: если текущая страница - не каталог, то нужно убрать пространство, занимаемое посковым элементом  -->
-    <header class="template-header" 
-                                     <?php if ($selected_btn != 'каталог') echo "style=\"height: 70px;\""?>
+    <header class="template-header">
 
-    >
-        <!-- логотип -->
-        <div class="logo-container"  id="logo">
-            <span class="logo-text disable-selection">Автозапчасти.ru</span>
-        </div>
+        <!-- панель шапки -->
+        <div class="container-fluid sidebar">
+            <div class="row">
 
-        <div class="sidebar-container">
+                <!-- логотип -->
+                <div class="col-xl-3 col-md-3 sidebar-logo"><span class="sidebar-logo-text disable-selection">Автозапчасти.ru</span></div>
 
-            <div class="sidebar" id="sidebar">
-                <!-- Корзина -->
-                <a href="/cart/index">
-                    <div id="sidebar_btn_cart" class="sidebar-element disable-selection <?php if ($selected_btn == 'корзина') echo 'selected';?>"
-                                                                                                                                                onmouseover="point(this)"
-                                                                                                                                                onmouseout="unpoint(this)">Корзина</div>
-                </a>
-
-                <!-- О нас -->
-                <a href="/catalog/about">
-                    <div id="sidebar_btn_about" class="sidebar-element disable-selection <?php if ($selected_btn == 'о нас') echo 'selected';?>"
-                                                                                                                                                    onmouseover="point(this)"
-                                                                                                                                                    onmouseout="unpoint(this)">О нас</div>
-                </a>
-
-                <!-- Каталог -->
-                <a href="/catalog/index">
-                    <div id="sidebar_btn_index" class="sidebar-element disable-selection <?php if ($selected_btn == 'каталог') echo 'selected';?>"
-                                                                                                                                                    onmouseover="point(this)"
-                                                                                                                                                    onmouseout="unpoint(this)">Каталог</div>
-                </a>
-
-                <?php
-                    echo "<!-- Менеджмент -->";
-                    if(true){
-                        echo "<a href='/'><div id=\"management_btn_main\" class=\"sidebar-element disable-selection\"
-                                                                                                                        onmouseover=\"point(this)\"
-                                                                                                                        onmouseout=\"unpoint(this)\">Менеджмент</div></a>";
-                    }
+                <!-- поиск -->
+                <?php if($selected_btn == "каталог") echo
+                "<div class=\"col-xl-3 col-md sidebar-search\">
+                    <input class=\"col-xl-12 col-md-8 sidebar-search-input\" type=\"text\" placeholder=\"🔎 поиск\">
+                </div>";
+                else echo "<div class=\"col-xl-3\" style='width:0;min-height:0;padding-right:0;padding-left:0;'></div>";
                 ?>
 
-            </div>
+                <!-- кнопки -->
+                <div class="col-xl-5 col-md-7 sidebar-buttons">
+                    <div class="row">
 
-            <a href="/verification/index">
-                <div id="user_icon" class="user-icon"
-                                                       onmouseover="point(this)"
-                                                       onmouseout="unpoint(this)">
-                    <div class="user-icon-text disable-selection"><?php echo 'войти'?></div>
+                        <?php if(true) echo
+                        "<a href=\"/management/index\" class=\"col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'менеджмент') echo 'selected';?>\"
+                             onmouseover=\"point(this)\"
+                             onmouseout=\"unpoint(this)\"
+                        >Менеджмент</a>";
+                        else echo "<div class=\"col-xl-3 col-md-3\"></div>"
+                        ?>
+
+                        <a href="/catalog/index" class="col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'каталог') echo 'selected';?>"
+                           onmouseover="point(this)"
+                           onmouseout="unpoint(this)"
+                        >Каталог</a>
+
+                        <a href="/catalog/about" class="col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'о нас') echo 'selected';?>"
+                             onmouseover="point(this)"
+                             onmouseout="unpoint(this)"
+                        >О нас</a>
+
+                        <a href="/cart/index" class="col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'корзина') echo 'selected';?>"
+                             onmouseover="point(this)"
+                             onmouseout="unpoint(this)"
+                        >Корзина</a>
+
+                    </div>
                 </div>
-            </a>
+
+                <!-- иконка -->
+                <div class="col-xl-1 col-md-1 sidebar-icon">
+                    <div class="sidebar-icon-btn"
+                         onmouseover="point(this)"
+                         onmouseout="unpoint(this)">
+                        <span class="sidebar-icon-btn-text"><?php echo 'войти'?></span>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-        <?php
-            //echo "<script>alert();</script>";
-            if ($selected_btn == 'каталог' || $url == "http://ecs") {
-                echo "  <div class=\"search-container\">
-                            <div class=\"search-field\">
-                                <input class=\"search\" type=\"text\" placeholder=\"🔎 поиск\">
-                                <a class=\"search-btn disable-selection\" onmouseover=\"point(this)\"
-                                                                        onmouseout=\"unpoint(this)\">Найти</a>
-                            </div>
-                        </div>";
-            }
-
-
-        ?>
     </header>
 
     <div id="content">
