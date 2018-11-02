@@ -35,9 +35,16 @@ function showMore(element) {
 }
 
 function point(element) {
-    if(element.className.indexOf(" pointed") == -1) element.className += " pointed";
+    if (document.body.clientWidth > 768){
+        if(element.className.indexOf(" pointed") == -1) element.className += " pointed";
+    }
 }
 
 function unpoint(element) {
     if(element.className.indexOf(" pointed") != -1) element.className = element.className.replace(" pointed", "");
+}
+
+function dropdownBtn(element) {
+    if(document.getElementById('dropdown content').style.display == 'none') document.getElementById('dropdown content').style.display = 'block';
+    else document.getElementById('dropdown content').style.display = 'none';
 }

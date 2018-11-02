@@ -24,8 +24,6 @@
 <!--        <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap-grid.css">-->
 <!--        <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap-grid.css">-->
 
-        <script type="javascript" src="/Application/Views/scripts/bootstrap.js"></script>
-        <script type="javascript" src="/Application/Views/scripts/bootstrap.bundle.js"></script>
     </head>
 
     <!--  PHP code: если текущая страница - не каталог, то нужно убрать пространство, занимаемое посковым элементом  -->
@@ -36,18 +34,18 @@
             <div class="row">
 
                 <!-- логотип -->
-                <div class="col-xl-3 col-md-3 sidebar-logo"><span class="sidebar-logo-text disable-selection">Автозапчасти.ru</span></div>
+                <div class="col-4 col-xl-3 col-md-3 sidebar-logo"><span class="sidebar-logo-text disable-selection">Автозапчасти.ru</span></div>
 
                 <!-- поиск -->
                 <?php if($selected_btn == "каталог") echo
-                "<div class=\"col-xl-3 col-md sidebar-search\">
-                    <input class=\"col-xl-12 col-md-8 sidebar-search-input\" type=\"text\" placeholder=\"🔎 поиск\">
+                "<div class=\"col-5 col-md col-xl-3 sidebar-search\">
+                    <input class=\"col-xl-12 sidebar-search-input\" type=\"text\" placeholder=\"🔎 поиск\">
                 </div>";
-                else echo "<div class=\"col-xl-3\" style='width:0;min-height:0;padding-right:0;padding-left:0;'></div>";
+                else echo "<div class=\"col-5 col-md-0 col-xl-3\" style='width:0;min-height:0;padding-right:0;padding-left:0;'></div>";
                 ?>
 
                 <!-- кнопки -->
-                <div class="col-xl-5 col-md-7 sidebar-buttons">
+                <div class="col-md-7 col-xl-5 sidebar-buttons">
                     <div class="row">
 
                         <?php if(true) echo
@@ -77,7 +75,7 @@
                 </div>
 
                 <!-- иконка -->
-                <div class="col-xl-1 col-md-1 sidebar-icon">
+                <div class="col-2 col-md-1 col-xl-1 sidebar-icon">
                     <div class="sidebar-icon-btn"
                          onmouseover="point(this)"
                          onmouseout="unpoint(this)">
@@ -85,17 +83,54 @@
                     </div>
                 </div>
 
+                <!-- кнопки на телефоне -->
+                <div class="col-1 d-block d-md-none d-xl-none">
+                    <div class="dropdown">
+                        <span class="disable-selection dropdown-text" onclick="dropdownBtn(this)">&#9776;</span>
+                    </div>
+                </div>
+
             </div>
+        </div>
+
+        <div id="dropdown content" class="dropdown-content d-xl-none d-md-none" style="display: none;">
+            <div class="row">
+                <a href="/catalog/index" class="sidebar-buttons-btn dropdown-content-row <?php if ($selected_btn == 'каталог') echo 'selected';?>">Каталог</a>
+            </div>
+
+            <div class="row">
+                <a href="/catalog/about" class="sidebar-buttons-btn dropdown-content-row <?php if ($selected_btn == 'о нас') echo 'selected';?>">О нас</a>
+            </div>
+
         </div>
 
     </header>
 
-    <div id="content">
+    <div id="content" class="content">
         <?php include VIEW_PATH. DS . $content_view; ?>
+
+
+        <!-- Кнопки для телефона внизу экрана -->
+        <div class="d-xl-none d-md-none" style="display: block;">
+            <div class="prefotter-btns fixed">
+                <a href="/cart/index">
+                    <div id="prefotterBtns cart btn" class="prefotter-btns-btn prefotter-btns-btn-cart">
+                        <img src="/Application/Views/Images/cart.png">
+                    </div>
+                </a>
+
+                <div id="prefotterBtns up btn" class="prefotter-btns-btn prefotter-btns-btn-up disable-selection">
+                    <span>&#9650;</span>
+                </div>
+            </div>
+        </div>
     </div><a id="content_end"></a>
 
 
     <footer class="template-footer"></footer>
 
     <script src="/Application/Views/scripts/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>
