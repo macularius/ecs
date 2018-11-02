@@ -113,7 +113,7 @@
                 position: inherit;
                 left: 87%;
                 bottom: 15px;
-                padding: 10px 20px;
+                padding: 10px 22px;
                 z-index: 3;
                 cursor: pointer;
             }
@@ -191,6 +191,13 @@
                     position: relative;
                     top: 15px;
                 }
+
+    .goods {
+        margin-top: 50px;
+    }
+
+
+
 
     .selected {
         background: #b2b2b2;
