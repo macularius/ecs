@@ -22,6 +22,13 @@ spl_autoload_register(function ($class) {
 });
 
 
+// get запросы
+if ($_GET['email'] && $_GET['password']) {
+	$email = $_GET['email'];
+	$password = $_GET['password'];
+	// echo "<script>alert('$url');</script>";
+}
+
 $routes = new routes();
 $router = new router();
 $router::addRoute($routes->getRoutes());

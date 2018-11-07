@@ -9,6 +9,7 @@
     elseif($controller_name == 'cart' && $action_name == 'index') $selected_btn = 'корзина';
     elseif($controller_name == 'cart' && $action_name == 'index') $selected_btn = 'корзина';
     elseif($controller_name == 'catalog' && $action_name == 'good') $selected_btn = 'товар';
+    elseif($controller_name == 'mng' && $action_name == 'index') $selected_btn = 'менеджмент';
     elseif($controller_name == 'authorization' && $action_name == 'index') $selected_btn = 'авторизация';
     else $selected_btn = 'каталог';
 ?>
@@ -19,6 +20,7 @@
         <meta charset="utf-8">
         <title id="title"><?echo $selected_btn;?></title>
 
+        <script src="/Application/Views/scripts/main.js"></script>
         <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/Application/Views/css/main.css">
 <!--        <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap-grid.css">-->
@@ -48,8 +50,11 @@
                 <div class="col-md-7 col-xl-5 sidebar-buttons">
                     <div class="row">
 
-                        <?php if(true) echo
-                        "<a href=\"/management/index\" class=\"col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'менеджмент') echo 'selected';?>\"
+                        <?php
+                        if ($selected_btn == 'менеджмент') $active = 'selected';
+                        else $active = '';
+                        if($_COOKIE['role']=='orders' || $_COOKIE['role']=='goods' || $_COOKIE['role']=='superadmin') echo
+                        "<a href=\"/mng/index\" class=\"col-xl-3 col-md-3 sidebar-buttons-btn $active\"
                              onmouseover=\"point(this)\"
                              onmouseout=\"unpoint(this)\"
                         >Менеджмент</a>";
@@ -78,12 +83,64 @@
                 <div class="col-2 col-md-1 col-xl-1 sidebar-icon">
                     <div class="sidebar-icon-btn"
                          onmouseover="point(this)"
-                         onmouseout="unpoint(this)">
-                        <span class="sidebar-icon-btn-text"><?php echo 'войти'?></span>
+                         onmouseout="unpoint(this)"
+                         onclick="showOrHiddenAuth()">
+                        <span class="sidebar-icon-btn-text"><?php if ($_COOKIE['login'] != "") echo 'Аккаунт';
+                                                                  else echo 'войти'?></span>
                     </div>
                 </div>
 
-                <!-- кнопки на телефоне -->
+                <!-- форма регистрации и авторизации -->
+                <div id="authorisation field" class="authorisation-field container d-none">
+                    <!-- авторизация -->
+                    <div>
+                        <form id="authorisation" class="d-block" action="login" method="post">
+                            <div class="form-group">
+                                <label for="inputEmail1">Электронный адрес</label>
+                                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword1">Пароль</label>
+                                <input type="password" class="form-control" id="inputPassword1" placeholder="Password" name="password">
+                            </div>
+                            <button type="submit" class="btn btn-dark float-right" onclick="reload()">Войти</button>
+                            <div class="btn btn-dark float-right" style="margin-right: 10px" onclick="enterOrReg(this);">Регистрация</div>
+                        </form>
+                    </div>
+                    <!-- регистрация -->
+                    <div>
+                        <form id="registration" class="d-none" action="registration" method="post">
+                            <div class="form-group">
+                                <label for="inputEmail2">Электронный адрес</label>
+                                <input type="email" class="form-control" id="inputEmail2" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword2">Пароль</label>
+                                <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRepeatPassword2">Повторите пароль</label>
+                                <input type="password" class="form-control" id="inputRepeatPassword2" placeholder="Repeat password">
+                            </div>
+                            <button type="submit" class="btn btn-dark float-right">Зарегистрироваться</button>
+                            <div class="btn btn-dark float-right" style="margin-right: 10px" onclick="enterOrReg(this);">Вход</div>
+                        </form>
+                    </div>
+                    <!-- выход -->
+                    <div>
+                        <form id="exit" class="d-none" action="exit" method="post">
+                            <div class="form-group">
+                                <label for="userEmail">Ваш электронный адрес</label>
+                                <input type="text" class="form-control" id="userEmail" aria-describedby="emailHelp" value="<?php echo $_COOKIE['login']?>;" disabled>
+                            </div>
+                            <div class="btn btn-dark float-right" style="margin-right: 10px" onclick="exit(this);">Выйти</div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- кнопка dropdown на телефоне -->
                 <div class="col-1 d-block d-md-none d-xl-none">
                     <div class="dropdown">
                         <span class="disable-selection dropdown-text" onclick="dropdownBtn(this)">&#9776;</span>
@@ -93,6 +150,7 @@
             </div>
         </div>
 
+        <!-- кнопки меню dropdown'а на телефоне -->
         <div id="dropdown content" class="dropdown-content d-xl-none d-md-none" style="display: none;">
             <div class="row">
                 <a href="/catalog/index" class="sidebar-buttons-btn dropdown-content-row <?php if ($selected_btn == 'каталог') echo 'selected';?>">Каталог</a>
@@ -102,23 +160,37 @@
                 <a href="/catalog/about" class="sidebar-buttons-btn dropdown-content-row <?php if ($selected_btn == 'о нас') echo 'selected';?>">О нас</a>
             </div>
 
+            <!-- категории -->
+            <div class="row">
+                <a class="sidebar-buttons-btn dropdown-content-row <?php if ($selected_btn == 'о нас') echo 'selected';?>"
+                    onclick="dropdownBtnCatigories(this)">Категории</a>
+            </div>
+
+            <!-- менеджмент -->
+            <div class="row">
+                <a href="/management/index" class="sidebar-buttons-btn dropdown-content-row <?php if ($selected_btn == 'менеджмент') echo 'selected';?>">Менеджмент</a>
+            </div>
+
         </div>
 
     </header>
 
     <div id="content" class="content">
+        <!-- динамический контент -->
         <?php include VIEW_PATH. DS . $content_view; ?>
 
 
         <!-- Кнопки для телефона внизу экрана -->
         <div class="d-xl-none d-md-none" style="display: block;">
-            <div class="prefotter-btns fixed">
+            <div class="prefotter-btns">
+                <!-- кнопка корзины -->
                 <a href="/cart/index">
                     <div id="prefotterBtns cart btn" class="prefotter-btns-btn prefotter-btns-btn-cart">
                         <img src="/Application/Views/Images/cart.png">
                     </div>
                 </a>
 
+                <!-- кнопка прокрутки страницы -->
                 <div id="prefotterBtns up btn" class="prefotter-btns-btn prefotter-btns-btn-up disable-selection">
                     <span>&#9650;</span>
                 </div>
@@ -128,8 +200,8 @@
 
 
     <footer class="template-footer"></footer>
+    <?php var_dump($_COOKIE['login'], $_COOKIE['password'], $_COOKIE['role']);?>
 
-    <script src="/Application/Views/scripts/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

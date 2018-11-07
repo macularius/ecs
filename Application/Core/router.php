@@ -12,6 +12,20 @@ class Router
     private static $params = array();
     public static $requestedUrl = '';
 
+
+    /**
+     * @param $var
+     * @param string $label
+     *
+     * Вывод информации в консоль
+     */
+    public static function cl_var_dump($var, $label = '') {
+        ob_start();
+        var_dump($var);
+        $result = json_encode(ob_get_clean());
+        echo "<script>console.group('".$label."');console.log('".$result."');console.groupEnd();</script>";
+    }
+
     /**
      * Добавить маршрут
      */
@@ -26,6 +40,8 @@ class Router
      * Разделить переданный URL на компоненты
      */
     public static function splitUrl($url) {
+        $temp = preg_split('/\//', $url, -1, PREG_SPLIT_NO_EMPTY);
+//        self::cl_var_dump($temp);
         return preg_split('/\//', $url, -1, PREG_SPLIT_NO_EMPTY);
     }
 
@@ -40,6 +56,21 @@ class Router
      * Обработка переданного URL
      */
     public static function dispatch($requestedUrl = null) {
+        /*
+         *  #TODO проверка логина и пароля. установка cookies
+         */
+        if(isset($_POST['email']) && isset($_POST['password'])) {
+            //echo "<script>alert('post имеется');</script>";
+            setcookie('login', (string)$_POST['email'], 0, 'ecs/');
+            setcookie('password', (string)$_POST['password'], 0, 'ecs/');
+            setcookie('role', 'superadmin', 0, 'ecs/');
+//            unset($_POST['email']);
+//            unset($_POST['password']);
+            header("Refresh:0");
+        }
+
+        // $temp = self::$params;
+        // echo "<script>alert('$temp[0]');</script>";
 
         // Если URL не передан, берем его из REQUEST_URI
         if ($requestedUrl === null) {
@@ -51,6 +82,7 @@ class Router
 
         // если URL и маршрут полностью совпадают
         if (isset(self::$routes[$requestedUrl])) {
+//            echo "<script>alert('url и маршрут совпали');</script>";
             self::$params = self::splitUrl(self::$routes[$requestedUrl]);
             return self::executeAction();
         }
@@ -90,6 +122,8 @@ class Router
 
         define('CONTROLLER_ACTION', $controller.DS.$action);
         $controller = new $controller();
+
+//        echo "<script>alert('$params[0]');</script>";
 
         if($params) $controller->$action($params); //return call_user_func_array(array($controller, $action), $params);
         else $controller->$action();        //return call_user_func(array($controller, $action));

@@ -9,7 +9,7 @@
 
 @media (min-width: 0) and (max-width: 767px) {
     body{
-        min-width: 550px;
+        min-width: 767px;
     }
 
     .sidebar{
@@ -39,6 +39,7 @@
             display: none;
         }
             .sidebar-buttons-btn {
+                cursor: pointer;
             }
             .sidebar-buttons-btn:hover {
                 text-decoration: none; !important;
@@ -87,7 +88,9 @@
             color: #262626;
             text-align: center;
         }
-
+        .dropdown-content-categories {
+            border-bottom: 2px solid;
+        }
 
     .prefotter-btns {
         position: fixed;
@@ -117,6 +120,27 @@
                 z-index: 3;
                 cursor: pointer;
             }
+    .authorisation-field {
+        width: 80%;
+        min-width: 440px;
+        padding: 15px;
+        background: #787878;
+        border: #262626 solid 2px;
+        border-radius: 10px;
+        position: fixed;
+        top: 10%;
+        left: 10%;
+        z-index: 3;
+    }
+
+
+    /*
+        Классы менеджмента
+     */
+    .mng-container {
+        min-width: 767px;
+        margin-top: 20px;
+    }
 
 
     .selected {
@@ -191,11 +215,28 @@
                     position: relative;
                     top: 15px;
                 }
+    .authorisation-field {
+        width: 40%;
+        padding: 15px;
+        background: #787878;
+        border: #262626 solid 2px;
+        border-radius: 10px;
+        position: fixed;
+        top: 10%;
+        left: 30%;
+        z-index: 3;
+    }
 
     .goods {
         margin-top: 50px;
     }
 
+    /*
+        Классы менеджмента
+     */
+    .mng-container {
+        margin-top: 110px;
+    }
 
 
 
@@ -262,6 +303,26 @@
                     position: relative;
                     top: 15px;
                 }
+        .authorisation-field {
+            width: 30%;
+            padding: 15px;
+            background: #787878;
+            border: #262626 solid 2px;
+            border-radius: 10px;
+            position: fixed;
+            top: 10%;
+            left: 30%;
+            z-index: 3;
+        }
+
+    /*
+        Классы менеджмента
+     */
+    .mng-container {
+        margin-top: 50px;
+    }
+
+
 
 
     .selected {
