@@ -133,7 +133,7 @@
                         <form id="exit" class="d-none" action="exit" method="post">
                             <div class="form-group">
                                 <label for="userEmail">Ваш электронный адрес</label>
-                                <input type="text" class="form-control" id="userEmail" aria-describedby="emailHelp" value="<?php echo $_COOKIE['login']?>;" disabled>
+                                <input type="text" class="form-control" id="userEmail" aria-describedby="emailHelp" value="<?php echo $_COOKIE['login']?>" disabled>
                             </div>
                             <div class="btn btn-dark float-right" style="margin-right: 10px" onclick="exit(this);">Выйти</div>
                         </form>

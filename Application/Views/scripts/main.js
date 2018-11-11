@@ -149,6 +149,38 @@ function showOrHiddenAuth() {
 
         element.classList.toggle('active', true);
     }
+    function btnManagementOrders(showingElement) {
+        document.getElementById('orders1').classList.toggle('active', false);
+        document.getElementById('orders2').classList.toggle('active', false);
+        document.getElementById('orders3').classList.toggle('active', false);
+
+        document.getElementById('orders_orders1').classList.toggle('d-none', true);
+        document.getElementById('orders_orders2').classList.toggle('d-none', true);
+        document.getElementById('orders_orders3').classList.toggle('d-none', true);
+
+        document.getElementById('orders_orders1').classList.toggle('d-block', false);
+        document.getElementById('orders_orders2').classList.toggle('d-block', false);
+        document.getElementById('orders_orders3').classList.toggle('d-block', false);
+
+        showingElement.classList.toggle('active', true);
+        document.getElementById('orders_'+showingElement.id).classList.toggle('d-none', false);
+    }
+    function btnManagementGoods(showingElement) {
+        document.getElementById('goods1').classList.toggle('active', false);
+        document.getElementById('goods2').classList.toggle('active', false);
+        document.getElementById('goods3').classList.toggle('active', false);
+
+        document.getElementById('goods_goods1').classList.toggle('d-none', true);
+        document.getElementById('goods_goods2').classList.toggle('d-none', true);
+        document.getElementById('goods_goods3').classList.toggle('d-none', true);
+
+        document.getElementById('goods_goods1').classList.toggle('d-block', false);
+        document.getElementById('goods_goods2').classList.toggle('d-block', false);
+        document.getElementById('goods_goods3').classList.toggle('d-block', false);
+
+        showingElement.classList.toggle('active', true);
+        document.getElementById('goods_'+showingElement.id).classList.toggle('d-none', false);
+    }
 
     function showEditedField(showingElement){
         // alert(showingElement);
@@ -206,7 +238,7 @@ function showOrHiddenAuth() {
     }
 
     function deleteCookie(name) {
-        document.cookie = name+"= ; expires=-1";
+        document.cookie = name+"=; path=/; expires=-1";
         // alert(document.cookie);
     }
 

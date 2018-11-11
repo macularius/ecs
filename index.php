@@ -9,12 +9,12 @@
 session_start();
 
 include_once 'config.php';
+include 'Application/Core/bootstrap.php';
 $url = $_GET['url'];
 
 
 //echo "<br >"."URL: ".$url."<br >";
 
-include 'Application/Core/bootstrap.php';
 
 // Автозагрузка классов
 spl_autoload_register(function ($class) {

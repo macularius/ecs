@@ -60,13 +60,15 @@ class Router
          *  #TODO проверка логина и пароля. установка cookies
          */
         if(isset($_POST['email']) && isset($_POST['password'])) {
-            //echo "<script>alert('post имеется');</script>";
-            setcookie('login', (string)$_POST['email'], 0, 'ecs/');
-            setcookie('password', (string)$_POST['password'], 0, 'ecs/');
-            setcookie('role', 'superadmin', 0, 'ecs/');
-//            unset($_POST['email']);
-//            unset($_POST['password']);
-            header("Refresh:0");
+            if(self::login($_POST['email'], $_POST['password'])){
+                setcookie('login', (string)$_POST['email'], 0, '/');
+                setcookie('password', (string)$_POST['password'], 0, '/');
+
+//              echo "<script>alert('post имеется');</script>";
+//              unset($_POST['email']);
+//              unset($_POST['password']);
+                header("Refresh:0");
+            }
         }
 
         // $temp = self::$params;
@@ -127,5 +129,23 @@ class Router
 
         if($params) $controller->$action($params); //return call_user_func_array(array($controller, $action), $params);
         else $controller->$action();        //return call_user_func(array($controller, $action));
+    }
+
+    private function login($login, $password) {
+//        var_dump($GLOBALS['db_ecs']);
+//        var_dump($login, $password);
+        $sql_query = 'SELECT `логин`, `пароль`, `роль` FROM `Пользователи` WHERE `логин` LIKE \''.$login.'\' AND `пароль` LIKE \''.$password.'\'';
+        $login = mysqli_query($GLOBALS['db_ecs'], $sql_query) or die("Ошибка " . mysqli_error($GLOBALS['db_ecs']));
+
+        $result = mysqli_fetch_row($login);
+//        var_dump($result);
+
+        setcookie('role', $result[2], 0, '/');
+
+
+        if (!empty($result)) {
+            return true;
+        }
+        else  return false;
     }
 }

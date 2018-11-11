@@ -24,6 +24,8 @@ class management_controller extends controller
             case "superadmin":
                 $this->view->generate('madmin_view.php', 'layout.php');
                 break;
+            case "":
+                header('Location: http://ecs/catalog/index ');
         }
     }
 

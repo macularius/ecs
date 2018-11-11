@@ -9,7 +9,7 @@
 class cart_controller extends controller
 {
     public function action_index(){
-        var_dump($_COOKIE);
+//        var_dump($_COOKIE);
         $this->view->generate('cart_view.php', 'layout.php');
     }
 

@@ -23,11 +23,6 @@ class catalog_controller extends controller
         $this->view->generate('about_view.php', 'layout.php');
     }
 
-    function action_cart()
-    {
-        $this->view->generate('action_cart()', 'layout.php');
-    }
-
     function action_management()
     {
         $this->view->generate('action_management()', 'layout.php');
