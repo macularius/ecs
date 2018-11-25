@@ -56,21 +56,6 @@ class Router
      * Обработка переданного URL
      */
     public static function dispatch($requestedUrl = null) {
-        /*
-         *  #TODO проверка логина и пароля. установка cookies
-         */
-        if(isset($_POST['email']) && isset($_POST['password'])) {
-            if(self::login($_POST['email'], $_POST['password'])){
-                setcookie('login', (string)$_POST['email'], 0, '/');
-                setcookie('password', (string)$_POST['password'], 0, '/');
-
-//              echo "<script>alert('post имеется');</script>";
-//              unset($_POST['email']);
-//              unset($_POST['password']);
-                header("Refresh:0");
-            }
-        }
-
         // $temp = self::$params;
         // echo "<script>alert('$temp[0]');</script>";
 
@@ -127,25 +112,65 @@ class Router
 
 //        echo "<script>alert('$params[0]');</script>";
 
-        if($params) $controller->$action($params); //return call_user_func_array(array($controller, $action), $params);
+
+        // авторизация
+//        var_dump($action);
+        if ($_POST['action'] == 'authorisation') {
+            if(isset($_POST['email']) && isset($_POST['password'])) {
+                if(self::login($_POST['email'], $_POST['password'])){
+
+//              echo "<script>alert('post имеется');</script>";
+                }
+            }
+        }
+        // регистрация
+        if ($_POST['action'] == 'registration') {
+            if(isset($_POST['email']) && isset($_POST['password'])) {
+                if(self::registration($_POST['email'], $_POST['password'])){
+
+                }
+            }
+        }
+        if (!empty($_POST)) '';
+        elseif($params) $controller->$action($params); //return call_user_func_array(array($controller, $action), $params);
         else $controller->$action();        //return call_user_func(array($controller, $action));
     }
 
     private function login($login, $password) {
-//        var_dump($GLOBALS['db_ecs']);
-//        var_dump($login, $password);
         $sql_query = 'SELECT `логин`, `пароль`, `роль` FROM `Пользователи` WHERE `логин` LIKE \''.$login.'\' AND `пароль` LIKE \''.$password.'\'';
-        $login = mysqli_query($GLOBALS['db_ecs'], $sql_query) or die("Ошибка " . mysqli_error($GLOBALS['db_ecs']));
+        $query = mysqli_query($GLOBALS['db_ecs'], $sql_query) or die("Ошибка " . mysqli_error($GLOBALS['db_ecs']));
 
-        $result = mysqli_fetch_row($login);
-//        var_dump($result);
-
-        setcookie('role', $result[2], 0, '/');
-
+        $result = mysqli_fetch_row($query);
 
         if (!empty($result)) {
+            //setcookie('isLogin', true, 0, '/');
+            setcookie('role', $result[2], 0, '/');
+            setcookie('login', (string)$login, 0, '/');
+            setcookie('password', (string)$password, 0, '/');
+
+            echo 'is login - true';
             return true;
         }
-        else  return false;
+        else {
+            //setcookie('isLogin', false, 0, '/');
+            echo 'is login - false';
+            return false;
+        }
+    }
+
+    private function registration($login, $password) {
+        $sql_query = 'SELECT `логин` FROM `Пользователи` WHERE `логин` LIKE \''.$login.'\'';
+        $query = mysqli_query($GLOBALS['db_ecs'], $sql_query) or die("Ошибка " . mysqli_error($GLOBALS['db_ecs']));
+
+        $result = mysqli_fetch_row($query);
+
+        if (empty($result)) {
+            $sql_query = 'INSERT INTO `Пользователи` (`код_пользователя`, `логин`, `пароль`, `роль`) VALUES (NULL, \''.$login.'\', \''.$password.'\', \'user\')';
+            $query = mysqli_query($GLOBALS['db_ecs'], $sql_query) or die("Ошибка " . mysqli_error($GLOBALS['db_ecs']));
+            echo 'login is empty';
+        }
+        else {
+            echo 'login is not empty';
+        }
     }
 }

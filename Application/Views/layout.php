@@ -20,7 +20,9 @@
         <meta charset="utf-8">
         <title id="title"><?echo $selected_btn;?></title>
 
+        <script src="/Application/Views/scripts/jquery.js"></script>
         <script src="/Application/Views/scripts/main.js"></script>
+
         <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/Application/Views/css/main.css">
 <!--        <link rel="stylesheet" type="text/css" href="/Application/Views/css/bootstrap-grid.css">-->
@@ -94,40 +96,46 @@
                 <div id="authorisation field" class="authorisation-field container d-none">
                     <!-- авторизация -->
                     <div>
-                        <form id="authorisation" class="d-block" action="login" method="post">
+                        <form action="javascript:void(null);" onsubmit="auth()" id="authorisation" class="d-block">
+                            <input type="hidden" name="action" value="authorisation">
                             <div class="form-group">
                                 <label for="inputEmail1">Электронный адрес</label>
                                 <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <label id="warning1" class="d-none" style="color: #bab7b1; font-style: italic;">неправильный логин или пароль</label>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword1">Пароль</label>
                                 <input type="password" class="form-control" id="inputPassword1" placeholder="Password" name="password">
                             </div>
-                            <button type="submit" class="btn btn-dark float-right" onclick="reload()">Войти</button>
+                            <input type="submit" class="btn btn-dark float-right" id="authorisation_submit" value="Войти">
                             <div class="btn btn-dark float-right" style="margin-right: 10px" onclick="enterOrReg(this);">Регистрация</div>
                         </form>
                     </div>
+
                     <!-- регистрация -->
                     <div>
-                        <form id="registration" class="d-none" action="registration" method="post">
+                        <form action="javascript:void(null);" onsubmit="registration()"  id="registration" class="d-none" action="registration" method="post">
+                            <input type="hidden" name="action" value="registration">
                             <div class="form-group">
                                 <label for="inputEmail2">Электронный адрес</label>
                                 <input type="email" class="form-control" id="inputEmail2" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <label id="warning2" class="d-none" style="color: #bab7b1; font-style: italic;">аккаунт с данной почтой уже создан</label>
+
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword2">Пароль</label>
-                                <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                                <input type="password" class="form-control" id="inputPassword2" placeholder="Password" name="password" oninput="identicalPasswords()">
                             </div>
                             <div class="form-group">
                                 <label for="inputRepeatPassword2">Повторите пароль</label>
-                                <input type="password" class="form-control" id="inputRepeatPassword2" placeholder="Repeat password">
+                                <input type="password" class="form-control" id="inputRepeatPassword2" placeholder="Repeat password" oninput="identicalPasswords()">
+                                <label id="warning on inputRepeatPassword2" class="d-none" style="color: #bab7b1; font-style: italic;">пароль не совпадает</label>
                             </div>
-                            <button type="submit" class="btn btn-dark float-right">Зарегистрироваться</button>
+                            <input id="registration_submit" type="submit" class="btn btn-dark float-right" value="Зарегистрироваться" disabled>
                             <div class="btn btn-dark float-right" style="margin-right: 10px" onclick="enterOrReg(this);">Вход</div>
                         </form>
                     </div>
+
                     <!-- выход -->
                     <div>
                         <form id="exit" class="d-none" action="exit" method="post">
@@ -200,9 +208,9 @@
 
 
     <footer class="template-footer"></footer>
-    <?php var_dump($_COOKIE['login'], $_COOKIE['password'], $_COOKIE['role']);?>
+    <?php print_r($_COOKIE);?>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>

@@ -1,3 +1,63 @@
+// AJAX
+    //Авторизация
+    function auth() {
+        $email = document.getElementById('inputEmail1').value;
+        $password = document.getElementById('inputPassword1').value;
+
+        authorisation($email, $password);
+    }
+
+    function authorisation($email, $password) {
+        $.ajax ({
+            url: "index.php",
+            type: "POST",
+            data: ({action: "authorisation", email: $email, password: $password}),
+            dataType: "html",
+            success: function(data){
+                        //alert(data);
+                        //alert(data =='is login - true');
+                        if (data =='is login - true') location.reload();
+                        else document.getElementById('warning1').classList.toggle('d-none', false);
+                    }
+        });
+    }
+
+    //Регистрация
+    function registration() {
+        $email = document.getElementById('inputEmail2').value;
+        $password = document.getElementById('inputPassword2').value;
+
+        $.ajax ({
+            url: "index.php",
+            type: "POST",
+            data: ({action: "registration", email: $email, password: $password}),
+            dataType: "html",
+            success: function(data){
+                // alert(data);
+                // alert(data =='is login - true');
+                if (data =='login is empty') authorisation($email, $password);
+                else document.getElementById('warning2').classList.toggle('d-none', false);
+            }
+        });
+    }
+        function identicalPasswords() {
+            $password1 = document.getElementById('inputPassword2').value;
+            $password2 = document.getElementById('inputRepeatPassword2').value;
+
+            if ($password1 == $password2) {
+                document.getElementById('registration_submit').disabled = false;
+                document.getElementById("warning on inputRepeatPassword2").classList.toggle('d-none', true);
+            }
+            else {
+                document.getElementById('registration_submit').disabled = true;
+                document.getElementById("warning on inputRepeatPassword2").classList.toggle('d-none', false);
+            }
+        }
+        
+
+// End AJAX
+
+
 function select(element) {
     if(element.className.indexOf(" selected") == -1) {
 
@@ -65,6 +125,7 @@ function exit(element) {
     deleteCookie('login');
     deleteCookie('password');
     deleteCookie('role');
+    deleteCookie('isLogin');
     location.reload();
 }
 
