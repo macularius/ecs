@@ -14,7 +14,8 @@ class catalog_controller extends controller
 
     function action_index()
     {
-        $this->view->generate('catalog_view.php', 'layout.php');
+        $this->model = new catalog_model();
+        $this->view->generate('catalog_view.php', 'layout.php', $this->model->get_data());
 
     }
 

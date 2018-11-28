@@ -12,3 +12,4 @@ define("CONTROLLER_PATH", realpath(dirname(__FILE__) . DS . 'Application' . DS .
 define("VIEW_PATH", realpath(dirname(__FILE__) . DS . 'Application' . DS . 'Views'));
 define("MODEL_PATH", realpath(dirname(__FILE__) . DS . 'Application' . DS . 'Models'));
 define("ENTITIES_PATH", realpath(dirname(__FILE__) . DS . 'Application' . DS . 'Entities'));
+define("GOODSIMG_PATH", realpath(dirname(__FILE__) . DS . 'Application' . DS . 'Views' . DS . 'Images' . DS . 'autoparts'));

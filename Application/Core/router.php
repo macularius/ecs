@@ -97,7 +97,6 @@ class Router
      */
     public static function executeAction() {
         $controller = isset(self::$params[0]) ? self::$params[0] : 'err';
-        $controller .= '_controller';
         $action = isset(self::$params[1]) ? self::$params[1] : 'err404';
         $action = 'action_'.$action;
         $params = array_slice(self::$params, 2);
@@ -105,9 +104,11 @@ class Router
 //        echo '<br> <b>executeAction:</b> ' . CONTROLLER_PATH . DS . $controller . '.php';
 //        echo '<br>' . $controller. '/' . $action . '/' . $params;
 
-        require CONTROLLER_PATH . DS . $controller . '.php';
+        require CONTROLLER_PATH . DS . $controller . '_controller.php';
+        require MODEL_PATH . DS . $controller . '_model.php';
 
         define('CONTROLLER_ACTION', $controller.DS.$action);
+        $controller .= '_controller';
         $controller = new $controller();
 
 //        echo "<script>alert('$params[0]');</script>";

@@ -315,6 +315,17 @@
             z-index: 3;
         }
 
+        .container {}
+
+            .good-container {
+                margin-top: 25px;
+                margin-bottom: 10px;
+            }
+                .good {
+                    border: #262626 solid 2px;
+                    padding: 10px;
+                }
+
     /*
         Классы менеджмента
      */
@@ -350,3 +361,19 @@
     -webkit-user-select: none; /* Chrome, Safari, and Opera */
     -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
+
+.availability {
+    height: 8px;
+    width: 8px;
+    border-radius: 8px;
+    background: #262626;
+    float: left;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+    .availability-good {
+        background: #1e7e34;
+    }
+    .availability-bad {
+        background: brown;
+    }
