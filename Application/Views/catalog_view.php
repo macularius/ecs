@@ -19,31 +19,31 @@
                 <?php
                     foreach ($data["goods"] as $good){
                         echo "<div class='good-container col-12 col-md-6 col-xl-4'>
-                            <div class='good'>
+                            <div class='good' style='background: #b2b2b2'>
                                 <!-- название -->
                                 <div style='overflow: hidden; height: 21px; font-weight: bold;'>
-                                    <span>$good[0]</span>
+                                    <span>$good[1]</span>
                                 </div><br>
                                 <!-- изображение -->
                                 <p style='padding-left: 10%;'>
-                                    <img src='Application/Views/Images/autoparts/$good[2]' height='100px' width='120px'>
+                                    <img src='http://ecs/Application/Views/Images/autoparts/$good[3]' height='100px' width='120px'>
                                 </p><br>
                                 <!-- вин -->
-                                <span>VIN: $good[3]</span><br>
+                                <span>VIN: $good[4]</span><br>
                                 <!-- номер -->
-                                <span>Номер: $good[4]</span><br>
+                                <span>Номер: $good[5]</span><br>
                                 <!-- описание -->
-                                <span>Описание: $good[1]</span><br>
+                                <span>Описание: $good[2]</span><br>
                                 <!-- наличие -->
                                 <div>
                                     <div class='availability ";
-                                                                $good[5]=='в наличии' ? print "availability-good" : print "availability-bad";
-                                                                echo "'></div><span>$good[5]</span>
+                                                                $good[6]=='в наличии' ? print "availability-good" : print "availability-bad";
+                                                                echo "'></div><span>$good[6]</span>
                                     <!-- кнопка купить и цена -->
-                                    <button style='float: right;' ";
-                                                                $good[5]=='в наличии' ? print "" : print "disabled";
+                                    <button style='float: right;' data-cost='$good[7]' data-id='$good[0]' onclick='addToCart(this)' class='";
+                                                                $good[6]=='в наличии' ? print "'" : print " d-none'";
                                                                 echo ">
-                                        <span style='float: right; font-weight: bold;'>$good[6] ₽</span>
+                                        <span style='float: right; font-weight: bold;'>$good[7] ₽</span>
                                     </button>
                                 </div>
                             </div>

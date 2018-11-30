@@ -57,25 +57,25 @@
                             else $active = '';
                             if($_COOKIE['role']=='orders' || $_COOKIE['role']=='goods' || $_COOKIE['role']=='superadmin') echo
                             "<a href=\"/mng/index\" class=\"col-xl-3 col-md-3 sidebar-buttons-btn $active\"
-                                 onmouseover=\"point(this)\"
-                                 onmouseout=\"unpoint(this)\"
+                                onmouseover=\"point(this)\"
+                                onmouseout=\"unpoint(this)\"
                             >Менеджмент</a>";
                             else echo "<div class=\"col-xl-3 col-md-3\"></div>"
                             ?>
 
                             <a href="/catalog/index" class="col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'каталог') echo 'selected';?>"
-                               onmouseover="point(this)"
-                               onmouseout="unpoint(this)"
+                                onmouseover="point(this)"
+                                onmouseout="unpoint(this)"
                             >Каталог</a>
 
                             <a href="/catalog/about" class="col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'о нас') echo 'selected';?>"
-                                 onmouseover="point(this)"
-                                 onmouseout="unpoint(this)"
+                                onmouseover="point(this)"
+                                onmouseout="unpoint(this)"
                             >О нас</a>
 
-                            <a href="/cart/index" class="col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'корзина') echo 'selected';?>"
-                                 onmouseover="point(this)"
-                                 onmouseout="unpoint(this)"
+                            <a href="/cart/index" id="cart_button" data-tooltip="информация корзины" class="col-xl-3 col-md-3 sidebar-buttons-btn <?php if ($selected_btn == 'корзина') echo 'selected';?>"
+                                onmouseover="point(this)"
+                                onmouseout="unpoint(this)"
                             >Корзина</a>
 
                         </div>
@@ -183,6 +183,7 @@
 
         </header>
 
+        <!-- контент -->
         <div id="content" class="content">
             <!-- динамический контент -->
             <?php include VIEW_PATH. DS . $content_view; ?>
@@ -206,9 +207,9 @@
             </div>
         </div><a id="content_end"></a>
 
-
         <footer class="template-footer"></footer>
 
+        <!-- отладочный вывод -->
         <pre><?php print_r($_COOKIE);?></pre>
 
 

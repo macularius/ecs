@@ -44,7 +44,7 @@
             $password1 = document.getElementById('inputPassword2').value;
             $password2 = document.getElementById('inputRepeatPassword2').value;
 
-            if ($password1 == $password2) {
+            if ($password1 == $password2 && $password1 != '') {
                 document.getElementById('registration_submit').disabled = false;
                 document.getElementById("warning on inputRepeatPassword2").classList.toggle('d-none', true);
             }
@@ -53,7 +53,6 @@
                 document.getElementById("warning on inputRepeatPassword2").classList.toggle('d-none', false);
             }
         }
-        
 
 // End AJAX
 
@@ -153,6 +152,60 @@ function showOrHiddenAuth() {
         document.getElementById('authorisation field').classList.toggle('d-block');
     }
 }
+
+function addToCart(element) {
+    document.getElementById("cart_button").classList.toggle("notification-anim", true);
+    setTimeout(addToCartTemp, 500);
+
+    var cartQuantity = getCookie('cart_quantity');
+    // alert(cartQuantity);
+    setCookie('cart_quantity',  Number(cartQuantity)+1, '/');
+
+    var cartSum = getCookie('cart_sum');
+    setCookie('cart_sum', Number(cartSum)+Number(element.dataset.cost));
+
+    var cartGoods = getCookie('cart_goods');
+    setCookie('cart_goods', cartGoods+','+element.dataset.id);
+}
+    function addToCartTemp() {
+        document.getElementById("cart_button").classList.toggle("notification-anim", false);
+    }
+
+var showingTooltip;
+document.onmouseover = function(e) {
+    var target = e.target;
+
+    var tooltip = target.getAttribute('data-tooltip');
+    if (!tooltip) return;
+
+
+    var tooltipElem = document.createElement('div');
+    tooltipElem.className = 'notification';
+    tooltipElem.innerHTML = 'в корзине '+getCookie('cart_quantity')+' товаров на сумму '+getCookie('cart_sum')+' ₽';
+    document.body.appendChild(tooltipElem);
+
+    var coords = target.getBoundingClientRect();
+
+    var left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
+    if (left < 0) left = 0; // не вылезать за левую границу окна
+
+    var top = coords.top - tooltipElem.offsetHeight - 5;
+    if (top < 0) { // не вылезать за верхнюю границу окна
+        top = coords.top + target.offsetHeight + 5;
+    }
+
+    tooltipElem.style.left = left + 'px';
+    tooltipElem.style.top = top + 'px';
+
+    showingTooltip = tooltipElem;
+};
+document.onmouseout = function(e) {
+    if (showingTooltip) {
+
+        document.body.removeChild(showingTooltip);
+        showingTooltip = null;
+    }
+};
 
 // Management
     function managementSwitcher(btn) {
@@ -303,32 +356,12 @@ function showOrHiddenAuth() {
         // alert(document.cookie);
     }
 
-    function setCookie(name, value, options) {
-        options = options || {};
-
-        var expires = options.expires;
-
-        if (typeof expires == "number" && expires) {
-            var d = new Date();
-            d.setTime(d.getTime() + expires * 1000);
-            expires = options.expires = d;
-        }
-        if (expires && expires.toUTCString) {
-            options.expires = expires.toUTCString();
-        }
+    function setCookie(name, value) {
 
         value = encodeURIComponent(value);
 
         var updatedCookie = name + "=" + value;
 
-        for (var propName in options) {
-            updatedCookie += "; " + propName;
-            var propValue = options[propName];
-            if (propValue !== true) {
-                updatedCookie += "=" + propValue;
-            }
-        }
-
-        document.cookie = updatedCookie;
+        document.cookie = updatedCookie + "; path=/; expire=0;";
     }
 // End cookie

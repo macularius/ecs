@@ -343,7 +343,28 @@
 }
 
 
+@keyframes notification-cart {
+    from {background: #262626;}
+    50% {background: #b2b2b2;}
+    to {background: #787878;}
+}
+    .notification-anim {
+        animation: notification-cart  2s infinite ease-in-out;
+    }
 
+.notification {
+    position: fixed;
+    padding: 10px 20px;
+
+    border: 1px solid #b3c9ce;
+    border-radius: 4px;
+    text-align: center;
+    font: italic 14px/1.3 sans-serif;
+    color: #333;
+    background: #fff;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+    z-index: 1;
+}
 
 .sidebar-buttons-btn:hover {
     color: #262626;

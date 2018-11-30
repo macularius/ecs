@@ -10,7 +10,7 @@ class catalog_model extends model
 {
     public function get_data()
     {
-        $sql_query_goods = "SELECT `наименование`, `описание`, `адрес_изображения`, `vin`, `номер`, `наличие`, `цена` FROM `Товары`";
+        $sql_query_goods = "SELECT `код_товара`, `наименование`, `описание`, `адрес_изображения`, `vin`, `номер`, `наличие`, `цена` FROM `Товары`";
         $sql_query_categories = "SELECT `название` FROM `Категории`";
 
         // Массив товаров
