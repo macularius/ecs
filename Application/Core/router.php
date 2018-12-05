@@ -101,11 +101,27 @@ class Router
         $action = 'action_'.$action;
         $params = array_slice(self::$params, 2);
 
+        
+//        setcookie('cart_quantity', 0, 0, '/');
+//        setcookie('cart_sum', 0, 0, '/');
+//        setcookie('cart_goods', -1, 0, '/');
+        if (!$_COOKIE['cart_quantity']) {
+            setcookie('cart_quantity', 0, 0, '/');
+        }
+        if (!$_COOKIE['cart_sum']) {
+            setcookie('cart_sum', 0, 0, '/');
+        }
+        if (!$_COOKIE['cart_goods']) {
+            setcookie('cart_goods', -1, 0, '/');
+        }
+
 //        echo '<br> <b>executeAction:</b> ' . CONTROLLER_PATH . DS . $controller . '.php';
 //        echo '<br>' . $controller. '/' . $action . '/' . $params;
 
         require CONTROLLER_PATH . DS . $controller . '_controller.php';
-        require MODEL_PATH . DS . $controller . '_model.php';
+        if (file_exists(MODEL_PATH . DS . $controller . '_model.php')) {
+            require MODEL_PATH . DS . $controller . '_model.php';
+        }
 
         define('CONTROLLER_ACTION', $controller.DS.$action);
         $controller .= '_controller';

@@ -14,7 +14,7 @@
             data: ({action: "authorisation", email: $email, password: $password}),
             dataType: "html",
             success: function(data){
-                        //alert(data);
+                        alert(data);
                         //alert(data =='is login - true');
                         if (data =='is login - true') location.reload();
                         else document.getElementById('warning1').classList.toggle('d-none', false);
@@ -33,7 +33,7 @@
             data: ({action: "registration", email: $email, password: $password}),
             dataType: "html",
             success: function(data){
-                // alert(data);
+                alert(data);
                 // alert(data =='is login - true');
                 if (data =='login is empty') authorisation($email, $password);
                 else document.getElementById('warning2').classList.toggle('d-none', false);
@@ -181,7 +181,7 @@ document.onmouseover = function(e) {
 
     var tooltipElem = document.createElement('div');
     tooltipElem.className = 'notification';
-    tooltipElem.innerHTML = 'в корзине '+getCookie('cart_quantity')+' товаров на сумму '+getCookie('cart_sum')+' ₽';
+    tooltipElem.innerHTML = 'в корзине '+getCookie('cart_quantity')+' ед. товара на сумму '+getCookie('cart_sum')+' ₽';
     document.body.appendChild(tooltipElem);
 
     var coords = target.getBoundingClientRect();
@@ -341,6 +341,97 @@ document.onmouseout = function(e) {
     }
 // End Management
 
+// Cart
+    document.onclick = function(e) {
+        //alert('onclick');
+        if (e.target.getAttribute('data-cart')=='clear') {
+            clearCart();
+        }
+
+        if(!e.target.getAttribute('data-sign')) return;
+
+        changeQuantity(e.target);
+    }
+
+    function clearCart(){
+        if (document.getElementById('goods container') != null) {
+            setCookie('cart_quantity', '0');
+            setCookie('cart_sum', '0');
+            setCookie('cart_goods', '-1');
+
+            // Изменение итогового количества товаров
+            document.getElementById('total quantity').innerHTML = '<b>'+0+' ед. товара</b>';
+
+            // Изменение итоговой стоимости
+            document.getElementById('total cost').innerHTML = '<b>Итого: '+0+' ₽</b>';
+
+            document.getElementById('goods container').remove();
+        }
+    }
+
+    function changeQuantity(element) {
+        //alert(element.getAttribute('data-goods')+' '+element.getAttribute('data-sign'));
+
+        switch(element.getAttribute('data-sign')){
+            case '+':
+                if (document.getElementById(element.getAttribute('data-goods')).value == 99) return;
+                // Изменение количества в строке товара
+                document.getElementById(element.getAttribute('data-goods')).value = Number(document.getElementById(element.getAttribute('data-goods')).value) + 1;
+
+                // Изменение суммарной стоимости в строке товара
+                document.getElementById('cost '+element.getAttribute('data-goods')).textContent = document.getElementById('cost '+element.getAttribute('data-goods')).textContent.replace(' ₽', '');
+                sum = Number(document.getElementById('cost '+element.getAttribute('data-goods')).textContent) + Number(element.getAttribute('data-cost'));
+                document.getElementById('cost '+element.getAttribute('data-goods')).textContent = sum+' ₽';
+
+                // Изменение итогового количества товаров
+                document.getElementById('total quantity').textContent = document.getElementById('total quantity').textContent.replace(' ед. товара', ''); // получаем число из итогового количества
+                var sum = Number(document.getElementById('total quantity').textContent) + 1;
+                document.getElementById('total quantity').innerHTML = '<b>'+sum+' ед. товара</b>';
+                setCookie('cart_quantity', sum);
+
+                // Изменение итоговой стоимости
+                document.getElementById('total cost').textContent = document.getElementById('total cost').textContent.replace('Итого: ', '');  // получаем число из итоговой стоимости
+                document.getElementById('total cost').textContent = document.getElementById('total cost').textContent.replace(' ₽', '');
+                sum = Number(document.getElementById('total cost').textContent) + Number(element.getAttribute('data-cost'));
+                document.getElementById('total cost').innerHTML = '<b>Итого: '+sum+' ₽</b>';
+                setCookie('cart_sum', sum);
+
+                // Добавление товара в массив товаров
+                var goods = getCookie('cart_goods');
+                var newGoods = goods+','+element.getAttribute('data-goods');
+                setCookie('cart_goods', newGoods);
+                break;
+            case '-':
+                if (document.getElementById(element.getAttribute('data-goods')).value == 1) return;
+                // Изменение количества в строке товара
+                document.getElementById(element.getAttribute('data-goods')).value = Number(document.getElementById(element.getAttribute('data-goods')).value) - 1;
+
+                // Изменение суммарной стоимости в строке товара
+                document.getElementById('cost '+element.getAttribute('data-goods')).textContent = document.getElementById('cost '+element.getAttribute('data-goods')).textContent.replace(' ₽', '');
+                sum = Number(document.getElementById('cost '+element.getAttribute('data-goods')).textContent) - Number(element.getAttribute('data-cost'));
+                document.getElementById('cost '+element.getAttribute('data-goods')).textContent = sum+' ₽';
+
+                // Изменение итогового количества товаров
+                document.getElementById('total quantity').textContent = document.getElementById('total quantity').textContent.replace(' ед. товара', ''); // получаем число из итогового количества
+                var sum = Number(document.getElementById('total quantity').textContent) - 1;
+                document.getElementById('total quantity').innerHTML = '<b>'+sum+' ед. товара</b>';
+                setCookie('cart_sum', sum);
+
+                // Изменение итоговой стоимости
+                document.getElementById('total cost').textContent = document.getElementById('total cost').textContent.replace('Итого: ', '');
+                document.getElementById('total cost').textContent = document.getElementById('total cost').textContent.replace(' ₽', '');
+                var sum = Number(document.getElementById('total cost').textContent) - Number(element.getAttribute('data-cost'));
+                document.getElementById('total cost').innerHTML = '<b>Итого: '+sum+' ₽</b>';
+                setCookie('cart_sum', sum);
+
+                // Удаление товара из массива товаров
+                var goods = getCookie('cart_goods');
+                var newGoods = goods.replace(','+element.getAttribute('data-goods'), '');
+                setCookie('cart_goods', newGoods);
+                break;
+        }
+    }
+// End cart
 
 
 // Cookie

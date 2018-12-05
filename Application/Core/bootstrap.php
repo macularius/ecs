@@ -14,6 +14,7 @@ include_once 'routes.php';
 include_once ENTITIES_PATH . DS . 'model.php';
 include_once ENTITIES_PATH . DS . 'view.php';
 include_once ENTITIES_PATH . DS . 'controller.php';
+include_once ENTITIES_PATH . DS . 'cart.php';
 
 /** DB **/
 global $db_host, $db_username, $db_password, $db_name, $db_charset;

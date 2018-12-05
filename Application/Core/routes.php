@@ -9,6 +9,7 @@
 class routes
 {
     private $routes = array(
+        //catalog
         '' => 'catalog/index', // главная страница
         '/catalog' => 'catalog/index', // главная страница
         '/catalog/index' => 'catalog/index', // главная страница
@@ -22,7 +23,7 @@ class routes
         '/catalog/registration' => 'catalog/index', // главная страница со входом
         '/catalog/index/registration' => 'catalog/index', // главная страница со входом
 
-//        '/catalog/indexContent' => 'catalog/indexContent', // контент главной страницы
+        //cart
         '/catalog/about' => 'catalog/about', // О нас
         '/cart/index' => 'cart/index', // корзина
         '/cart/login' => 'catalog/index', // корзина
