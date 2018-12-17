@@ -7,14 +7,15 @@
  */
 
 /** Core **/
-include_once 'router.php';
-include_once 'routes.php';
+require_once 'router.php';
+require_once 'routes.php';
+require_once 'fpdf/fpdf.php';
 
 /** Entities **/
-include_once ENTITIES_PATH . DS . 'model.php';
-include_once ENTITIES_PATH . DS . 'view.php';
-include_once ENTITIES_PATH . DS . 'controller.php';
-include_once ENTITIES_PATH . DS . 'cart.php';
+require_once ENTITIES_PATH . DS . 'model.php';
+require_once ENTITIES_PATH . DS . 'view.php';
+require_once ENTITIES_PATH . DS . 'controller.php';
+require_once ENTITIES_PATH . DS . 'cart.php';
 
 /** DB **/
 global $db_host, $db_username, $db_password, $db_name, $db_charset;

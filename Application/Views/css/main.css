@@ -337,14 +337,15 @@
         .cart-godos-container {
 
         }
-            .cart-goods-remove {
+            .cart-goods-btn {
                 float: right;
+                margin-left: 15px;
                 user-select: none;
                 cursor: pointer;
                 font-size: 15px;
                 color: #262626;
             }
-            .cart-goods-remove:hover {
+            .cart-goods-btn:hover {
                 text-shadow: 1px 1px 2px #262626, 0 0 1em white;
             }
             .cart-goods-name {
@@ -406,6 +407,11 @@
                 }
     .order {
         background: #b2b2b2;
+        padding-bottom: 50px;
+    }
+    .order-login {
+        padding-top: 40px;
+        text-align: center;
     }
 
 

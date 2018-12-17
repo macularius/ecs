@@ -40,10 +40,12 @@
                                                                 $goods[6]=='в наличии' ? print "availability-good" : print "availability-bad";
                                                                 echo "'></div><span>$goods[6]</span>
                                     <!-- кнопка купить и цена -->
-                                    <button style='float: right;' data-cost='$goods[7]' data-id='$goods[0]' onclick='addToCart(this)' class='";
+                                    <button style='cursor: pointer; float: right;' data-cost='$goods[7]' data-id='$goods[0]' onclick='addToCart(this)' class='";
                                                                 $goods[6]=='в наличии' ? print "'" : print " d-none'";
                                                                 echo ">
-                                        <span style='float: right; font-weight: bold;'>$goods[7] ₽</span>
+                                        <span style='float: right; font-weight: bold;'>
+                                            <img src='/Application/Views/Images/cart.png' height='15px'> $goods[7] ₽
+                                        </span>
                                     </button>
                                 </div>
                             </div>

@@ -25,6 +25,7 @@ class cart
 
         $cart_goods_quantities = array_count_values($mod_goods);
         unset($cart_goods_quantities[-1]);
+        asort($cart_goods_quantities);
 
         foreach ($cart_goods_quantities as $key => $value) {
             $sql_query_goods = "SELECT `код_товара`, `наименование`, `описание`, `адрес_изображения`, `vin`, `номер`, `наличие`, `цена` FROM `Товары` WHERE `код_товара` = $key";
