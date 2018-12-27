@@ -100,8 +100,7 @@
                                 <input type="hidden" name="action" value="authorisation">
                                 <div class="form-group">
                                     <label for="inputEmail1">Электронный адрес</label>
-                                    <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                                    <label id="warning1" class="d-none" style="color: #bab7b1; font-style: italic;">неправильный логин или пароль</label>
+                                    <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email"><label id="warning1" class="d-none" style="color: #bab7b1; font-style: italic;">неправильный логин или пароль</label>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword1">Пароль</label>

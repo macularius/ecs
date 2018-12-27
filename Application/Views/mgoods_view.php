@@ -9,13 +9,8 @@
 
     <!-- контент -->
     <div class="edited-field">
-        <!-- группа goods контент 1 -->
-        <div id="goods_goods1" class="d-block">товары</div>
-
-        <!-- группа goods контент 2 -->
-        <div id="goods_goods2" class="d-none">категории</div>
-
-        <!-- группа goods контент 3 -->
-        <div id="goods_goods3" class="d-none">автомобили</div>
+        <div id="edited field content">
+            goods_goods1
+        </div>
     </div>
 </div>

@@ -13,9 +13,4 @@ class cart_controller extends controller
         $this->model = new cart_model();
         $this->view->generate('cart_view.php', 'layout.php', $this->model->get_data());
     }
-
-    public function action_order(){
-
-        echo "cart, order"; //#TODO
-    }
 }

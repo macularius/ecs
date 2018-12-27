@@ -8,9 +8,9 @@
 
 class catalog_controller extends controller
 {
-    public function action_good($id){
-        $this->view->generate('good_view.php', 'layout.php', $id);
-    }
+//    public function action_good($id){
+//        $this->view->generate('good_view.php', 'layout.php', $id);
+//    }
 
     function action_index()
     {

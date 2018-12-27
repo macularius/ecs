@@ -330,11 +330,14 @@
     }
 
     /* Классы корзины */
+    .cart-content {
+        margin-top: 50px;
+    }
     .cart {
         background: #b2b2b2;
         padding: 10px;
     }
-        .cart-godos-container {
+        .cart-goods-container {
 
         }
             .cart-goods-btn {
@@ -413,6 +416,14 @@
         padding-top: 40px;
         text-align: center;
     }
+
+    .mng-content-table {
+        background: #b2b2b2;
+        border: white solid 2px;
+    }
+        .mng-content-table-row {
+            background: #cacaca;
+        }
 
 
 

@@ -4,6 +4,7 @@
         $email = document.getElementById('inputEmail1').value;
         $password = document.getElementById('inputPassword1').value;
 
+        // alert($email, $password);
         authorisation($email, $password);
     }
 
@@ -54,8 +55,8 @@
             }
         }
 
-    //Заказ на почту
-    function sendMail() {
+    //Заказ
+    function acceptOrder() {
         var address = document.getElementById('order address');
         var number = document.getElementById('order number');
 
@@ -78,8 +79,38 @@
         /**#TODO отправка почты
         */
         if (address.value != '' && number.value != '') {
-            alert('Сообщение о заказе отправлено вам на почту.');
+            alert('Ваш заказ поступил в обработку.');
+            // #TODO
         }
+    }
+
+    //Менеджмент
+    function getManagementContent(context) {
+        $.ajax ({
+            url: "index.php",
+            type: "POST",
+            data: ({action: "management", context: context}),
+            dataType: "html",
+            response: "html",
+            success: function(data){
+                //alert(data);
+                document.getElementById('edited field content').innerHTML = data;
+            }
+        });
+    }
+
+    function executeManagementAction(actionmng, context, object) {
+        $.ajax ({
+            url: "index.php",
+            type: "POST",
+            data: ({action: "management edit", actionmng: actionmng, context: context, object: object}),
+            dataType: "html",
+            response: "html",
+            success: function(data){
+                //alert(data);
+                document.getElementById('edited field edit').innerHTML = data;
+            }
+        });
     }
 // End AJAX
 
@@ -198,41 +229,6 @@ function addToCart(element) {
         document.getElementById("cart_button").classList.toggle("notification-anim", false);
     }
 
-var showingTooltip;
-document.onmouseover = function(e) {
-    var target = e.target;
-
-    var tooltip = target.getAttribute('data-tooltip');
-    if (!tooltip) return;
-
-
-    var tooltipElem = document.createElement('div');
-    tooltipElem.className = 'notification';
-    tooltipElem.innerHTML = 'в корзине '+getCookie('cart_quantity')+' ед. товара на сумму '+getCookie('cart_sum')+' ₽';
-    document.body.appendChild(tooltipElem);
-
-    var coords = target.getBoundingClientRect();
-
-    var left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
-    if (left < 0) left = 0; // не вылезать за левую границу окна
-
-    var top = coords.top - tooltipElem.offsetHeight - 5;
-    if (top < 0) { // не вылезать за верхнюю границу окна
-        top = coords.top + target.offsetHeight + 5;
-    }
-
-    tooltipElem.style.left = left + 'px';
-    tooltipElem.style.top = top + 'px';
-
-    showingTooltip = tooltipElem;
-};
-document.onmouseout = function(e) {
-    if (showingTooltip) {
-
-        document.body.removeChild(showingTooltip);
-        showingTooltip = null;
-    }
-};
 
 // Management
     function managementSwitcher(btn) {
@@ -324,30 +320,9 @@ document.onmouseout = function(e) {
     }
 
     function showEditedField(showingElement){
-        // alert(showingElement);
+        //alert(showingElement);
 
-        document.getElementById('goods_goods1').classList.toggle('d-block', false);
-        document.getElementById('goods_goods2').classList.toggle('d-block', false);
-        document.getElementById('goods_goods3').classList.toggle('d-block', false);
-        document.getElementById('orders_orders1').classList.toggle('d-block', false);
-        document.getElementById('orders_orders2').classList.toggle('d-block', false);
-        document.getElementById('orders_orders3').classList.toggle('d-block', false);
-        document.getElementById('members_members1').classList.toggle('d-block', false);
-        document.getElementById('members_members2').classList.toggle('d-block', false);
-        document.getElementById('members_members3').classList.toggle('d-block', false);
-
-        document.getElementById('goods_goods1').classList.toggle('d-none', true);
-        document.getElementById('goods_goods2').classList.toggle('d-none', true);
-        document.getElementById('goods_goods3').classList.toggle('d-none', true);
-        document.getElementById('orders_orders1').classList.toggle('d-none', true);
-        document.getElementById('orders_orders2').classList.toggle('d-none', true);
-        document.getElementById('orders_orders3').classList.toggle('d-none', true);
-        document.getElementById('members_members1').classList.toggle('d-none', true);
-        document.getElementById('members_members2').classList.toggle('d-none', true);
-        document.getElementById('members_members3').classList.toggle('d-none', true);
-
-        document.getElementById(showingElement).classList.toggle('d-block', true);
-        document.getElementById(showingElement).classList.toggle('d-none', false);
+        getManagementContent(showingElement);
     }
 
     function showManagementBtn(btn) {
@@ -369,25 +344,6 @@ document.onmouseout = function(e) {
 // End Management
 
 // Cart
-    document.onclick = function(e) {
-        //alert('onclick');
-        if (e.target.getAttribute('data-cart')=='clear') {
-            clearCart();
-        }
-        if (e.target.getAttribute('data-cart')=='print') {
-            print();
-        }
-        if (e.target.getAttribute('data-cart')=='order') {
-            sendMail();
-        }
-
-        if(e.target.getAttribute('data-sign')) {
-            changeQuantity(e.target);
-        }
-
-
-    }
-
     function clearCart(){
         if (document.getElementById('goods container') != null) {
             setCookie('cart_quantity', '0');
@@ -493,3 +449,67 @@ document.onmouseout = function(e) {
         document.cookie = updatedCookie + "; path=/; expire=0;";
     }
 // End cookie
+
+var showingTooltip;
+document.onmouseover = function(e) {
+    var target = e.target;
+
+    var tooltip = target.getAttribute('data-tooltip');
+    if (!tooltip) return;
+
+
+    var tooltipElem = document.createElement('div');
+    tooltipElem.className = 'notification';
+    tooltipElem.innerHTML = 'в корзине '+getCookie('cart_quantity')+' ед. товара на сумму '+getCookie('cart_sum')+' ₽';
+    document.body.appendChild(tooltipElem);
+
+    var coords = target.getBoundingClientRect();
+
+    var left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
+    if (left < 0) left = 0; // не вылезать за левую границу окна
+
+    var top = coords.top - tooltipElem.offsetHeight - 5;
+    if (top < 0) { // не вылезать за верхнюю границу окна
+        top = coords.top + target.offsetHeight + 5;
+    }
+
+    tooltipElem.style.left = left + 'px';
+    tooltipElem.style.top = top + 'px';
+
+    showingTooltip = tooltipElem;
+};
+document.onmouseout = function(e) {
+    if (showingTooltip) {
+
+        document.body.removeChild(showingTooltip);
+        showingTooltip = null;
+    }
+};
+document.onclick = function(e) {
+    //alert('onclick');
+    if (e.target.getAttribute('data-cart')=='clear') {
+        clearCart();
+        document.getElementById('cart clear').classList.toggle('d-none', true);
+        document.getElementById('cart print').classList.toggle('d-none', true);
+        document.getElementById('order content').innerHTML = "<div class=\"container order-login\"><span>Корзина пуста</span><br><span>Для оформления заказа добавьте в корзину товар</span></div>";
+    }
+    if (e.target.getAttribute('data-cart')=='print') {
+        print();
+    }
+    if (e.target.getAttribute('data-cart')=='order') {
+        acceptOrder();
+    }
+
+    if(e.target.getAttribute('data-sign')) {
+        changeQuantity(e.target);
+    }
+
+    if (e.target.getAttribute('data-mng-action')) {
+        var actionmng = 'action';
+        var context = 'context';
+        var object = 'object';
+
+        executeManagementAction(actionmng, context, object);
+    }
+
+}

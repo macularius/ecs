@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container cart-content">
 	<div class="row">
 		<!-- список товаров -->
 		<div class="col-xl-6">
@@ -9,8 +9,8 @@
 					<span>Товары:</span>
                     <?
                         if($_COOKIE['cart_goods'] != '-1') {
-                            echo "<a data-cart='clear' class=\"cart-goods-btn\">Очистить корзину</a>
-                                  <a data-cart='print' class=\"cart-goods-btn\">Распечатать</a>";
+                            echo "<a id='cart clear' data-cart='clear' class=\"cart-goods-btn\">Очистить корзину</a>
+                                  <a id='cart print' data-cart='print' class=\"cart-goods-btn\">Распечатать</a>";
                         }
                     ?>
 					
@@ -58,47 +58,54 @@
 		</div>
 
 		<!-- заказ -->
-		<div class="col-xl-6">
+		<div id="order content" class="col-xl-6">
 				<?
                 /** Оформление заказа
                  * Реализована проверка авторизации пользователя, если пользователь не авторизован, то ему недоступно оформление заказа
                  */
 					if ($_COOKIE['login']) {
-						echo "
-                        <span>Оформление заказа</span>
-						<div class=\"container order\">
-                            <div>
-                                <!-- Получатель -->
-                                <div class=\"form-group\">
-                                    <!-- e-mail -->
-                                    <label><b>Ваш электронный адрес</b></label>
-                                    <input type=\"email\" class=\"form-control\" value=\"".$_COOKIE['login']."\" disabled>
+					    if ($_COOKIE['cart_goods'] == '-1') {
+					        echo "
+					            <div class=\"container order-login\">
+                                    <span>Корзина пуста</span><br>
+                                    <span>Для оформления заказа добавьте в корзину товар</span>
+                                </div>";
+                        }
+                        else {
+                            echo "
+                            <span>Оформление заказа</span>
+                            <div class=\"container order\">
+                                <div>
+                                    <!-- Получатель -->
+                                    <div class=\"form-group\">
+                                        <!-- e-mail -->
+                                        <label><b>Ваш электронный адрес</b></label>
+                                        <input type=\"email\" class=\"form-control\" value=\"".$_COOKIE['login']."\" disabled>
+                                    </div>
+                                    <!-- Адрес -->
+                                    <span><b>Адрес доставки:</b></span><br>
+                                    <div class=\"form-group\">
+                                        <input id=\"order address\" type=\"text\" class=\"form-control\">
+                                        <label id=\"order warning address\" class=\"d-none\" style=\"color: #212529; font-style: italic;\">введите адрес доставки</label>
+                                    </div>
+                                    <!-- Контактный номер -->
+                                    <span><b>Контактный номер:</b></span><br>
+                                    <div class=\"form-group\">
+                                        <input id=\"order number\" type=\"text\" class=\"form-control\">
+                                        <label id=\"order warning number\" class=\"d-none\" style=\"color: #212529; font-style: italic;\">введите контактный номер</label>
+                                    </div>
+                                    <!-- Заказать -->
+                                    <input type=\"submit\" data-cart=\"order\" class=\"btn btn-dark float-right\" id=\"order_submit\" value=\"Заказать\">
                                 </div>
-                                <!-- Адрес -->
-                                <span><b>Адрес доставки:</b></span><br>
-                                <div class=\"form-group\">
-                                    <input id=\"order address\" type=\"text\" class=\"form-control\">
-                                    <label id=\"order warning address\" class=\"d-none\" style=\"color: #212529; font-style: italic;\">введите адрес доставки</label>
-                                </div>
-                                <!-- Контактный номер -->
-                                <span><b>Контактный номер:</b></span><br>
-                                <div class=\"form-group\">
-                                    <input id=\"order number\" type=\"text\" class=\"form-control\">
-                                    <label id=\"order warning number\" class=\"d-none\" style=\"color: #212529; font-style: italic;\">введите контактный номер</label>
-                                </div>
-                                <!-- Заказать -->
-                                <input type=\"submit\" data-cart=\"order\" class=\"btn btn-dark float-right\" id=\"order_submit\" value=\"Заказать\">
-                            </div>
-                        </div>
-						";
+                            </div>";
+                        }
 					}
 					else {
 						echo "
                             <div class=\"container order-login\">
                                 <span>Авторизируйтесь для оформления заказа.</span><br>
                                 <input class=\"btn btn-dark\" type=\"submit\" value=\"Авторизироваться\" onclick=\"showOrHiddenAuth()\">
-                            </div>
-                        ";
+                            </div>";
 					}
 				?>
 		</div>
